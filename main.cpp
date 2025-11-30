@@ -32,15 +32,13 @@ Resultados Funcionalidades(int tiradas, int cant_productos, vector<vector<int>>&
 
     // Mostrar tirada de menor cantidad de defectos
     for (int tirada = 1; tirada < tiradas; tirada++){
-        if(total_por_tiradas[tirada-1] < total_por_tiradas[tirada]) {
-            tirada_menor = tirada-1;
+        if(total_por_tiradas[tirada] < total_por_tiradas[tirada_menor]) {
+            tirada_menor = tirada;
         }
-        else tirada_menor = tirada;
         
-        if(total_por_tiradas[tirada-1] > total_por_tiradas[tirada]) {
-            tirada_mayor = tirada-1;
+        if(total_por_tiradas[tirada] > total_por_tiradas[tirada_mayor]) {
+            tirada_mayor = tirada;
         }
-        else tirada_mayor = tirada;
     }
 
     // Funcionalidad de mantenimiento
