@@ -9,6 +9,7 @@ struct Resultados
     int mayor;
     int menor;
     bool necesita_mantenimiento;
+    bool trabaja_eficientemente;
 };
 
 
@@ -19,6 +20,7 @@ Resultados Funcionalidades(int tiradas, int cant_productos, vector<vector<int>>&
     int tirada_menor = 0;
     int tirada_mayor = 0;
     bool necesita_mantenimiento = false;
+    bool trabaja_eficientemente = false;
 
     // calculo del total
     for (int tirada = 0; tirada < tiradas; tirada++){
@@ -41,10 +43,13 @@ Resultados Funcionalidades(int tiradas, int cant_productos, vector<vector<int>>&
         else tirada_mayor = tirada;
     }
 
-    // Funcionalidad de eficiencia
-    if ((total_por_tiradas.back() + total_por_tiradas[total_por_tiradas.size() - 2]) > 150) necesita_mantenimiento = true;
+    // Funcionalidad de mantenimiento
+    if (tiradas >= 2) if ((total_por_tiradas.back() + total_por_tiradas[total_por_tiradas.size() - 2]) > 150) necesita_mantenimiento = true;
 
-    return {total, tirada_mayor+1, tirada_menor+1, necesita_mantenimiento};
+    // Funcionalidad de eficiencia
+    if (tiradas > 5 && total <= 50) trabaja_eficientemente = true;
+
+    return {total, tirada_mayor+1, tirada_menor+1, necesita_mantenimiento, trabaja_eficientemente};
 
 }
 
@@ -79,7 +84,14 @@ int main(){
     cout<<"El total de productos es: "<<resultados.total<<endl;
     cout<<"La tirada con menor defectos en sus productos fue: "<<resultados.menor<<endl;
     cout<<"La tirada con mayor defectos en sus productos fue: "<<resultados.mayor<<endl;
-    resultados.necesita_mantenimiento == true ? cout<<"El horno necesita mantenimiento"<<endl : cout<<"El horno no necesita mantenimiento"<<endl;
-
+    if (tiradas >= 2)
+        resultados.necesita_mantenimiento == true ? cout<<"El horno necesita mantenimiento"<<endl : cout<<"El horno no necesita mantenimiento"<<endl;
+    else cout<<"Necesitas realizar minimo 2 tiradas para verificar si necesita mantenimiento o no"<<endl;
+        
+    if (tiradas > 5)
+    {
+        resultados.trabaja_eficientemente == true ? cout<<"El horno trabaja eficientemente"<<endl : cout<<"El horno no trabaja eficientemente"<<endl;
+    } else cout<<"Necesitas realizar mas de 5 tiradas para comprobar la eficiencia"<<endl;
+    
     return 0;
 }
