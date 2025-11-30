@@ -8,6 +8,7 @@ struct Resultados
     int total;
     int mayor;
     int menor;
+    bool necesita_mantenimiento;
 };
 
 
@@ -17,6 +18,7 @@ Resultados Funcionalidades(int tiradas, int cant_productos, vector<vector<int>>&
     vector<int>total_por_tiradas(tiradas, 0);
     int tirada_menor = 0;
     int tirada_mayor = 0;
+    bool necesita_mantenimiento = false;
 
     // calculo del total
     for (int tirada = 0; tirada < tiradas; tirada++){
@@ -39,7 +41,10 @@ Resultados Funcionalidades(int tiradas, int cant_productos, vector<vector<int>>&
         else tirada_mayor = tirada;
     }
 
-    return {total, tirada_mayor+1, tirada_menor+1};
+    // Funcionalidad de eficiencia
+    if ((total_por_tiradas.back() + total_por_tiradas[total_por_tiradas.size() - 2]) > 150) necesita_mantenimiento = true;
+
+    return {total, tirada_mayor+1, tirada_menor+1, necesita_mantenimiento};
 
 }
 
@@ -74,6 +79,7 @@ int main(){
     cout<<"El total de productos es: "<<resultados.total<<endl;
     cout<<"La tirada con menor defectos en sus productos fue: "<<resultados.menor<<endl;
     cout<<"La tirada con mayor defectos en sus productos fue: "<<resultados.mayor<<endl;
+    resultados.necesita_mantenimiento == true ? cout<<"El horno necesita mantenimiento"<<endl : cout<<"El horno no necesita mantenimiento"<<endl;
 
     return 0;
 }
