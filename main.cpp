@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <random>
 
 using namespace std;
 
@@ -51,6 +52,46 @@ Resultados Funcionalidades(int tiradas, int cant_productos, vector<vector<int>>&
 
 }
 
+void VerificarCincoIguales(int tiradas, int cant_productos, vector<vector<int>>& array) {
+    vector<int> todos_los_elementos;
+    for(int i = 0; i < tiradas; i++) {
+        for(int j = 0; j < cant_productos; j++) {
+            todos_los_elementos.push_back(array[i][j]);
+        }
+    }
+
+    // Validar que existan al menos 5 elementos
+    if (todos_los_elementos.size() < 5) {
+        cout << "Se necesitan minimo 5 elementos" << endl;
+        return;
+    }
+
+    // 2. Seleccionar 5 al azar (mezclando el vector)
+    for (int i = 0; i < todos_los_elementos.size(); i++) {
+        int r = rand() % todos_los_elementos.size();
+        swap(todos_los_elementos[i], todos_los_elementos[r]);
+    }
+
+    bool sonIguales = true;
+    int primerValor = todos_los_elementos[0];
+
+    cout << "Elementos seleccionados: ";
+    for(int i = 0; i < 5; i++) {
+        cout << todos_los_elementos[i] << " ";
+        if(todos_los_elementos[i] != primerValor) {
+            sonIguales = false;
+        }
+    }
+    cout << endl;
+
+    // 4. Mostrar resultado
+    if (sonIguales == true) {
+        cout << "Resultado: SI, todos los elementos seleccionados son iguales." << endl;
+    } else {
+        cout << "Resultado: NO, los elementos seleccionados son diferentes." << endl;
+    }
+}
+
 int main(){
 
     int tiradas = 3;
@@ -90,6 +131,6 @@ int main(){
     {
         resultados.trabaja_eficientemente == true ? cout<<"El horno trabaja eficientemente"<<endl : cout<<"El horno no trabaja eficientemente"<<endl;
     } else cout<<"Necesitas realizar mas de 5 tiradas para comprobar la eficiencia"<<endl;
-    
+    VerificarCincoIguales(tiradas, cant_productos, defectos);
     return 0;
 }
