@@ -92,8 +92,74 @@ void VerificarCincoIguales(int tiradas, int cant_productos, vector<vector<int>>&
     }
 }
 
-int main(){
+void Matriz(int tiradas, int cant_productos, vector<vector<int>>& array, int id_1, int id_2){
+    if(cant_productos>=2 && tiradas >=2){
+        // Uso de IA para verificacion de errores
+        const int TAMANIO_ARRAY = array.size();
+        
+        if (id_1 == TAMANIO_ARRAY) id_1--;
+        if (id_2 == TAMANIO_ARRAY) id_2--;
+        
+        const int ULTIMO_INDICE = TAMANIO_ARRAY - 1;
+        const int PENULTIMO_INDICE = TAMANIO_ARRAY - 2;
+        
+        if (id_1 == ULTIMO_INDICE) {
+            id_1 = PENULTIMO_INDICE;
+        }
+        if (id_2 == ULTIMO_INDICE) {
+            id_2 = PENULTIMO_INDICE;
+        }
 
+        if (TAMANIO_ARRAY < 2 || id_1 < 0 || id_2 < 0 || 
+            id_1 >= TAMANIO_ARRAY - 1 || id_2 >= TAMANIO_ARRAY - 1) {
+            
+            // Este error ocurre si el array tiene menos de 2 elementos,
+            // o si los IDs originales eran 0 y el array solo tenía 1 elemento.
+            cerr << "\nERROR Matriz: Los datos son insuficientes (se requieren al menos 2 tiradas válidas)." << endl;
+            cerr << "El rango de tiradas válidas (0-base) es de 0 a " << TAMANIO_ARRAY - 2 << " (para poder formar la pareja)." << endl;
+            return; 
+        }
+
+        if (array[id_1].size() < 2 || array[id_1+1].size() < 2 || 
+            array[id_2].size() < 2 || array[id_2+1].size() < 2) {
+            cerr << "\nERROR Matriz: Las tiradas seleccionadas deben tener al menos 2 productos (columnas)." << endl;
+            return; 
+        }
+        
+        //realizando metodo de multiplicacion de matrices 2x2
+        //Seleccionar los productos de las 2 primeras tiradas segun su indice o id
+        vector<vector<int>> matriz_1 (2, vector<int>(2));
+        vector<vector<int>> matriz_2 (2, vector<int>(2));
+        // ID=1 (Tirada 1 [0][1] x tirada 2[0][1])
+        
+        matriz_1[0][0] = array[id_1][0];
+        matriz_1[0][1] = array[id_1][1];
+        matriz_1[1][0] = array[id_1+1][0];
+        matriz_1[1][1] = array[id_1+1][1];
+
+        matriz_2[0][0] = array[id_2][0];
+        matriz_2[0][1] = array[id_2][1];
+        matriz_2[1][0] = array[id_2+1][0];
+        matriz_2[1][1] = array[id_2+1][1];
+
+        vector<vector<int>> matriz_resultante(2, vector<int> (2));
+        for(int i = 0; i < 2; i++){
+            for(int j = 0; j < 2; j++){
+                matriz_resultante[i][j] = matriz_1[i][j] * matriz_2[i][j];
+            }
+        }
+
+        for(int i = 0; i < 2; i++){
+            for(int j = 0; j < 2; j++){
+                cout<<matriz_resultante[i][j]<<" ";
+            }
+            cout<<endl;
+        }
+    }
+}
+
+int main(){
+    int id_1 = 0, id_2 = 0;
     int tiradas = 3;
     int cant_productos = 4;
 
@@ -132,5 +198,9 @@ int main(){
         resultados.trabaja_eficientemente == true ? cout<<"El horno trabaja eficientemente"<<endl : cout<<"El horno no trabaja eficientemente"<<endl;
     } else cout<<"Necesitas realizar mas de 5 tiradas para comprobar la eficiencia"<<endl;
     VerificarCincoIguales(tiradas, cant_productos, defectos);
+    cout<<"Ingrese el primer ID: "; cin>>id_1;
+    cout<<"Ingrese el segundo ID: "; cin>>id_2;
+    Matriz(tiradas, cant_productos, defectos, id_1-1, id_2-1);
+    
     return 0;
 }
