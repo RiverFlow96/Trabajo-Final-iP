@@ -43,7 +43,7 @@ Resultados Funcionalidades(int tiradas, int cant_productos, vector<vector<int>>&
     }
 
     // Funcionalidad de mantenimiento
-    if (tiradas >= 2) if ((total_por_tiradas.back() + total_por_tiradas[total_por_tiradas.size() - 2]) > 150) necesita_mantenimiento = true;
+    if (tiradas >= 2) if (total_por_tiradas.back() > 150 && total_por_tiradas[total_por_tiradas.size() - 2] > 150) necesita_mantenimiento = true;
 
     // Funcionalidad de eficiencia
     if (tiradas > 5 && total <= 50) trabaja_eficientemente = true;
