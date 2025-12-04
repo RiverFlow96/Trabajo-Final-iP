@@ -3,7 +3,7 @@
 ![Lenguaje](https://img.shields.io/badge/Lenguaje-C%2B%2B-blue)
 ![Lenguaje](https://img.shields.io/badge/Lenguaje-Git-orange)
 
-# Problematicas resueltas con el problema:
+# Problematicas resueltas con el Ejercicio:
 En los talleres de fundición de la Empresa de Tuberías y Aspersores se llevan diferentes controles que permiten recopilar información necesaria para la toma de decisiones y optimización de sus procesos. Uno de ellos consiste en llevar el registro de la cantidad de defectos por cada producto en cada tirada.
 Para el desarrollo del programa siga las siguientes instrucciones:
 * Construya un arreglo teniendo en cuenta la cantidad de productos a analizar y las tiradas realizadas en el proceso productivo. 
